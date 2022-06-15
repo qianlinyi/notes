@@ -16,6 +16,11 @@
 ### config
 
 ```bash
+# 列举config中的所有变量集，包括它们的值
+git config --list
+--add  # 添加配置项
+--unset  # 删除配置项
+
 # 配置用户信息
 git config --global user.name "your name"  # 配置用户名
 git config --global user.email "your email"  # 配置用户邮箱
@@ -27,11 +32,29 @@ git config --glocal --list  # 列出全局配置
 git congig --system --list  # 列出系统配置
 ```
 
-## Getting and Creating Projects
+### help
+
+显示帮助信息
 
 ```bash
-# 初始化git仓库
+git help name
+```
+
+## Getting and Creating Projects
+
+### init
+
+创建新的Git仓库
+
+```bash
 git init  # 创建一个新的本地仓库
+```
+
+### clone
+
+拷贝一个远程仓库到本地
+
+```bash
 git clone URL  # 从远程git仓库复制项目
 ```
 
@@ -49,13 +72,18 @@ git clone URL  # 从远程git仓库复制项目
 
 ```bash
 git status  # 查看文件状态
-git status -s  # 获得简短的输出结果，绿色表示已添加到缓存区，红色表示未添加到缓存区，M表示修改，D表示??表示untracked
+git status -s  # 获得简短的输出结果，绿色表示已添加到暂存区，红色表示未添加到zan'cun区，M表示修改，D表示删除，??表示untracked
 ```
 
 ### diff
 
+比较文件的不同，即比较文件在缓存区和工作区的差异
+
 ```bash
-git diff  # 比较工作区中当前文件和暂存区之间的差异
+git diff  # 查看尚未缓存的改动
+git diff --cached  # 比较暂存区和本地仓库最后一次提交的差异
+git diff --staged  # 显示差异统计
+git diff HEAD  # 自上次提交以来工作树的修改
 ```
 
 ### add
@@ -99,6 +127,15 @@ HEAD~2  # 上上一个版本
 HEAD^3  # 上上上一个版本
 ```
 
+常用指令
+
+```bash
+git reset [--soft | --mixed | --hard] [HEAD]
+--soft  # 回退到之前的版本，不会修改暂存区和工作区的内容，将重置HEAD带来的新差异放进暂存区
+--mixed  # 默认，可以不用带该参数，重置暂存区文件与上一次的提交保持一致，工作区文件内容保持不变
+--hard  # 撤销所有未提交的修改内容，将暂存区和工作区都回退到之前版本
+```
+
 ### rm
 
 删除文件
@@ -109,8 +146,6 @@ git rm -f <file>  # 强制删除，如果文件删除之前修改过且已经add
 git rm --cached <file>  # 将文件从暂存区移除，但仍保留在工作区
 git rm -r *  # 递归删除，*表示目录
 ```
-
-
 
 ## Branching and Merging
 
