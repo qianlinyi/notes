@@ -9,7 +9,7 @@
 - 本地仓库 Repository
 - 远程仓库 Remote
 
-![img](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cb9f8ca142574d9faf226c7811617816~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp)
+![](Git基本工作流程.png)
 
 ## Setup and Config
 
