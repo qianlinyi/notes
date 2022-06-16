@@ -147,16 +147,39 @@ git rm --cached <file>  # 将文件从暂存区移除，但仍保留在工作区
 git rm -r *  # 递归删除，*表示目录
 ```
 
+### mv
+
+移动或重命名一个文件
+
+```bash
+git mv [file] [newfile]
+git mv [source] [destination]
+-f  # 强制重命名即使新文件名已存在
+```
+
 ## Branching and Merging
+
+### branch
+
+用于列出、创建或删除分支
 
 ```bash
 # 分支命令
 git branch  # 查看所有分支，当前分支前会加星号
 git branch 分支名  # 创建分支
+git branch -r  # 显示远程分支
+git branch -a  # 显示本地和远程分支
+git branch -m [branch] [newbranch]  # 修改分支名
+git branch -d [branch]  # 删除本地分支
+git branch -d -r [branch]  # 删除远程分支
+```
 
+###  log
+
+```bash
 # 查看提交记录
 git log
 git log --oneline  # 每次提交记录以单行显示
+
 ```
 
- 
