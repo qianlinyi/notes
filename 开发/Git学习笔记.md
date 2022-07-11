@@ -174,6 +174,26 @@ git branch -d [branch]  # 删除本地分支
 git branch -d -r [branch]  # 删除远程分支
 ```
 
+### merge
+
+用于将两个或以上的开发历史合并到一起
+
+```bash
+git merge [branch]  # 将branch分支合并到当前分支上
+git merge --abort  # merge发生冲突时使用，中止merge进程并重建到merge前的状态。注意合并开始时如果存在未commit的文件，该指令可能会失效。
+```
+
+```
+example [git merge topic]: 
+          A---B---C topic
+         /
+    D---E---F---G master
+    
+          A---B---C topic
+         /         \
+    D---E---F---G---H master
+```
+
 ###  log
 
 ```bash
