@@ -200,8 +200,37 @@ example [git merge topic]:
 # 查看提交记录
 git log
 git log --oneline  # 每次提交记录以单行显示
-
 ```
+
+### stash
+
+将更改储存在脏工作目录中
+
+应用场景：当在dev分支下开发新功能时，main分支突然出现了问题，此时必须要切换到主分支紧急修复Bug，此时就可以使用git stash指令暂存当前未提交的修改，这样工作区干净之后就可以切换到main分支下修复Bug。在修复完成后，切换回dev分支下使用git stash pop命令将修改提取出来，继续进行新功能的开发工作即可。
+
+默认情况下，git stash会缓存下列文件：
+
+- 添加到暂存区的修改（staged changes）
+- Git跟踪的但并未添加到暂存区的修改（unstaged changes）
+
+但不会缓存以下文件：
+
+- 在工作目录中新的文件（untracked files）
+- 被忽略的文件（ignored files）
+
+```bash
+git stash  # 暂存分支下未提交的修改，所有修改都保存至栈中
+git stash save [message]  # 暂存时添加标识信息
+git stash list  # 查看暂存的文件
+# stash@{index}: WIP on [分支名]: [最近一次的commitID] [最近一次的提交信息]
+git stash pop  # 恢复暂存之前的工作目录，删除stash list中的记录
+git stash apply stash@{index}  # 恢复暂存之前的工作目录，不删除stash list中的记录，可以指定index
+git stash drop stash@{index}  # 删除stash list中的记录，可以指定index
+git stash clear  # 删除stash list中的所有记录
+git stash show -p stash@{index}  # 查看指定index的记录信息，-p显示详细信息
+```
+
+### worktree
 
 ## Sharing and Updating Projects
 
