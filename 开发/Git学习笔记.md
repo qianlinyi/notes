@@ -232,6 +232,14 @@ git stash show -p stash@{index}  # 查看指定index的记录信息，-p显示�
 
 ### worktree
 
+管理多个工作树
+
+```bash
+git worktree list [--porcelain]  # 列出每个工作树的详细信息,--porcelain可以改变显示风格
+git worktree lock  # 锁定worktree防止其被移除
+git worktree unlock  # 解除锁定
+```
+
 ## Sharing and Updating Projects
 
 ### remote
