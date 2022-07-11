@@ -191,33 +191,23 @@ git log --oneline  # 每次提交记录以单行显示
 
 ### rebase
 
-可以对某一段线性提交历史进行编辑、删除、复制、粘贴
+变基，Reapply commits on top of another base tip
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/36efc2704d174acab598c4b9addd3694.png?)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/12b959efcc454da5a15b9fdec493d61b.png?)
+
+rebase常见用法：
 
 1. 合并多个commit为一个完整commit
 
 ![img](https://upload-images.jianshu.io/upload_images/2147642-42195cacced56729.png?imageMogr2/auto-orient/strip|imageView2/2/w/417/format/webp)
 
-```bash
-git rebase -i [startpoint] [endpoint]
-# -i即--interactive，即弹出交互式的界面让用户编辑完成合并操作，后面指定一个编辑区间，如果给出[endpoint]，则区间的终点默认是当前HEAD所指向的commit，该区间指定的是一个前开后闭的区间
-# 例：git rebase -i HEAD~3
-```
-
-```bash
-pick  # 保留该commit（缩写:p）
-reword  # 保留该commit，但要修改该commit的注释（缩写:r）
-edit  # 保留该commit, 但要停下来修改该提交(不仅仅修改注释)（缩写:e）
-squash  # 将该commit和前一个commit合并（缩写:s）
-fixup  # 将该commit和前一个commit合并，但不保留该提交的注释信息（缩写:f）
-exec  # 执行shell命令（缩写:x）
-drop  # 我要丢弃该commit（缩写:d）
-```
-
 2. 将某一段提交粘贴到另一个分支上
 
-![img](https://upload-images.jianshu.io/upload_images/2147642-0de010746cb78401.png?imageMogr2/auto-orient/strip|imageView2/2/w/808/format/webp)
+   ![img](https://upload-images.jianshu.io/upload_images/2147642-0de010746cb78401.png?imageMogr2/auto-orient/strip|imageView2/2/w/808/format/webp)
 
-```bash
-git rebase [startpoint] [endpoint] --onto [branch]
-```
+3. 无特殊需求尽量用merge！
+
+
 
