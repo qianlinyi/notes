@@ -244,18 +244,20 @@ git worktree unlock  # 解除锁定
 
 ### fetch
 
-从远程分支拉取代码
+从远程分支拉取代码，不会自动合并
 
 ```bash
 git fetch <远程主机名> <分支名>
 # 取回更新的同时会返回一个FETCH_HEAD
-# 可以用git log [-p] FETCH_HEAD查看取回的代码和本地不同的地方
+# 可以用git log [-p] FETCH_HEAD查看拉取的代码和本地不同的地方
 ```
 
 ### pull
 
+从远程仓库拉取代码并合并本地的版本
+
 ```bash
-git pull = git fetch + git merge
+git pull = git fetch + git merge FETCH_HEAD
 ```
 
 ### push
