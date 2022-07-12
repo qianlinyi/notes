@@ -257,10 +257,18 @@ git fetch <远程主机名> <分支名>
 从远程仓库拉取代码并合并本地的版本
 
 ```bash
-git pull = git fetch + git merge FETCH_HEAD
+git pull <远程主机名> <远程分支名>:<本地分支名>
+# git pull = git fetch + git merge FETCH_HEAD
 ```
 
 ### push
+
+将本地分支的更新，推送到远程主机
+
+```bash
+git push <远程主机名> <本地分支名>:<远程分支名>
+git push --force <远程主机名>  # 远程主机版本比本地版本更新，要求先在本地git pull合并差异，如果一定要推送，可以采用--force
+```
 
 ### remote
 
