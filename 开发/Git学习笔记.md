@@ -272,6 +272,18 @@ git push --force <远程主机名>  # 远程主机版本比本地版本更新，
 
 ### remote
 
+管理远程仓库
+
+```bash
+git remote  # 列出已经存在的远程分支
+git remote -v  # 列出详细信息
+git remote show [remote]  # 显示某个远程仓库的信息
+git remote add [shortname] [url]  # 添加远程版本库，shortname为版本库简称，url为版本库地址
+git remote rm name  # 删除远程仓库
+git remote rename old_name new_name  # 修改仓库名
+git remote set-url <remote name> <newURL>  # 修改远程仓库的URL
+```
+
 ## Patching
 
 ### rebase
