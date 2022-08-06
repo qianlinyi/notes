@@ -70,6 +70,25 @@ p {
 }
 ```
 
+## CSS 通配选择器
+
+在 CSS 中，一个星号 (`*`) 就是一个通配选择器。它可以匹配任意类型的 HTML 元素。在配合其他简单选择器的时候，省略掉通配选择器会有同样的效果。比如，`*.warning` 和`.warning` 的效果完全相同。
+
+在 CSS3 中，星号 (`*`) 可以和命名空间组合使用：
+
+- `ns|*` - 会匹配`ns`命名空间下的所有元素
+- `*|*` - 会匹配所有命名空间下的所有元素
+- `|*` - 会匹配所有没有命名空间的元素
+
+示例：
+
+```css
+* {
+    color: red;
+    font-size: 20px;
+}
+```
+
 ## CSS id 和 Class 选择器
 
 ### id 和 class 选择器
@@ -118,6 +137,67 @@ p.center {
 ```
 
 类名的第一个字符不能使用数字！它无法在 Mozilla 或 Firefox 中起作用。
+
+## CSS 继承
+
+某些属性会自动继承其父元素的计算值，除非显式指定一个值
+
+示例：
+
+```css
+<p>This is a <em>test</em> of <strong>inherit</strong></p>
+
+<style>
+  body {
+    font-size: 20px;
+  }
+  p {
+    color: blue;
+  }
+  em {
+    color: red;
+  }
+</style>
+```
+
+### 显式继承 inherit
+
+**`inherit`** 关键字使得元素获取其父元素的计算值。它可以应用于任何 CSS 属性，包括 CSS 简写 `all`。
+
+对于**继承**属性，inherit 关键字只是增强了属性的默认行为，通常只在覆盖原有的值的时候使用。
+
+继承始终来自文档树中的父元素，即使父元素不是包含块。
+
+示例：
+
+```css
+* {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+.some-widget {
+  box-sizing: content-box;
+}
+```
+
+### 初始值
+
+CSS 中，每个属性都有一个初始值
+
+- background-color的初始值为transparent
+- margin-left的初始值为0
+
+可以用intial关键字显示重置为初始值
+
+- background-color:intial
+
+## CSS 求值过程
+
+<img src="https://assets.codepen.io/59477/value.svg" alt="img" style="zoom:200%;" />
 
 ## CSS 创建
 
@@ -211,7 +291,7 @@ font-size:20pt;
 
 即颜色属性将被继承于外部样式表，而文字排列（text-alignment）和字体尺寸（font-size）会被内部样式表中的规则取代。
 
-## 多重样式优先级
+### 多重样式优先级
 
 样式表允许以多种方式规定样式信息。样式可以规定在单个的 HTML 元素中，在 HTML 页的头元素中，或在一个外部的 CSS 文件中。甚至可以在同一个 HTML 文档内部引用多个外部样式表。
 
@@ -459,7 +539,7 @@ p {text-indent:50px;}
 
 CSS 字体属性定义字体，加粗，大小，文字样式。
 
-## serif 和 sans-serif 字体之间的区别
+### serif 和 sans-serif 字体之间的区别
 
 ![Serif vs. Sans-serif](https://www.runoob.com/images/serif.gif)
 
@@ -890,6 +970,137 @@ th {
 }
 ```
 
+## CSS 布局
+
+CSS 布局：
+
+- 确定内容的大小和位置的算法
+
+- 依据元素、容器、兄弟节点和内容等信息来计算
+
+### 块级 vs 行级
+
+| 块级 Block Level Box | 行级 Inline Level Box                  |
+| -------------------- | -------------------------------------- |
+| 不和其他盒子并列摆放 | 和其他行级盒子一起放在一行或拆开成多行 |
+| 使用所有的盒模型     | 盒模型中的width、height不适用          |
+
+### 块级元素 vs 行级元素
+
+| 块级元素                                              | 行级元素                             |
+| ----------------------------------------------------- | ------------------------------------ |
+| 生成块级盒子                                          | 生成行级盒子<br>内容分散在多个行盒中 |
+| body、article、div、main、section、h1-6、p、ul、li 等 | span、em、strong、cite、code 等      |
+| display:block                                         | display:inline                       |
+
+![image-20220725194029773](/Users/zaizai/Library/Application Support/typora-user-images/image-20220725194029773.png)
+
+### 常规流 Normal Flow
+
+- 根元素、浮动和绝对定位的元素会脱离常规流
+- 其它元素都在常规流之内（in-flow）
+- 常规流中的盒子，在某种排版上下文中参与布局
+
+#### 行级排版上下文 IFC(Inline Formatting Context)
+
+只包含行级盒子的容器会创建一个 IFC
+
+IFC 内的排版规则
+
+- 盒子在一行内水平摆放
+- 一行放不下时，换行显示
+- text-align 决定一行内盒子的水平堆起
+- vertical-align 决定一个盒子在行内的垂直对齐
+- 避开浮动 float 元素
+
+示例：
+
+```html
+<div>
+  This is a paragraph of text with long word Honorificabilitudinitatibus. Here is an image
+  <img src="https://assets.codepen.io/59477/cat.png" alt="cat">
+  And <em>Inline Block</em>
+</div>
+
+<style>
+  div {
+    width: 10em;
+    //overflow-wrap: break-word;
+    background: #411;
+  }
+
+  em {
+    display: inline-block;
+    width: 3em;
+    background: #33c;
+  }
+</style>
+```
+
+#### 块级排版上下文 BFC(Block Formatting Context)
+
+某些容器会创建一个BFC
+
+- 根元素
+- 浮动、绝对定位、inline-block
+- Flex 子项和 Grid 子项
+- overflow 值不是 visible 的块盒
+- Display:flow-root;
+
+示例：
+
+```html
+<span>
+  This is a text and
+  <div>block</div>
+  and other text.
+</span>
+
+<style>
+  span {
+    line-height: 3;
+    border: 2px solid red;
+    background: coral;
+  }
+
+  div {
+    line-height: 1.5;
+    background: lime;
+  }
+</style>
+```
+
+#### Flex Box
+
+一种新的排版上下文，它可以控制子级盒子的：
+
+- 摆放的流向 ( → ← ↑ ↓ )
+- 摆放顺序
+- 盒子宽度和高度
+- 水平和垂直方向的对齐
+- 是否允许折行
+
+![image-20220725200656522](/Users/zaizai/Library/Application Support/typora-user-images/image-20220725200656522.png)
+
+Flexibility
+
+- 可以设置子项的弹性：当容器有剩余空间时，会伸展；容器空间不够时，会收缩。
+- flex-grow 有剩余空间时的伸展能力
+- flex-shrink 容器空间不足时收缩的能力
+- flex-basis 没有伸展或收缩时的基础长度
+
+#### Grid 布局
+
+display: grid
+
+- display: grid 使元素生成一个块级的 Grid 容器
+
+- 使用 grid-template 相关属性将容器划分为网格
+
+- 设置每一个子项占哪些行/列
+
+![image-20220725201025451](/Users/zaizai/Library/Application Support/typora-user-images/image-20220725201025451.png)
+
 ## CSS 盒子模型
 
 ### CSS 盒子模型（Box Model）
@@ -916,7 +1127,9 @@ CSS 盒模型本质上是一个盒子，封装周围的 HTML 元素，它包括�
 
 ### 元素的宽度和高度
 
-当您指定一个 CSS 元素的宽度和高度属性时，你只是设置内容区域的宽度和高度。要知道，完整大小的元素，你还必须添加内边距，边框和外边距。
+当指定一个 CSS 元素的宽度和高度属性时，你只是设置内容区域的宽度和高度。要知道，完整大小的元素，你还必须添加内边距，边框和外边距。
+
+**容器有指定的高度时，百分数才生效。**
 
 下面的例子中的元素的总宽度为300px：
 
@@ -971,7 +1184,7 @@ IE8 及更早 IE 版本不支持设置填充的宽度和边框的宽度属性。
 
 CSS边框属性允许你指定一个元素边框的样式和颜色。
 
-## 边框样式
+### 边框样式
 
 边框样式属性指定要显示什么样的边界。
 
@@ -1119,12 +1332,6 @@ border:5px solid red;
 
 轮廓（outline）属性指定元素轮廓的样式、颜色和宽度。
 
-## CSS 轮廓（outline）
-
-轮廓（outline）是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用。
-
-CSS outline 属性规定元素轮廓的样式、颜色和宽度。
-
 ![Outline](https://www.runoob.com/images/box_outline.gif)
 
 ### 所有CSS 轮廓（outline）属性
@@ -1152,11 +1359,11 @@ margin 可以单独改变元素的上，下，左，右边距，也可以一次�
 
 ### 可能的值
 
-| 值       | 说明                                        |
-| :------- | :------------------------------------------ |
-| auto     | 设置浏览器边距。 这样做的结果会依赖于浏览器 |
-| *length* | 定义一个固定的 margin（使用像素，pt，em等） |
-| *%*      | 定义一个使用百分比的边距                    |
+| 值       | 说明                                                         |
+| :------- | :----------------------------------------------------------- |
+| auto     | 设置浏览器边距。 这样做的结果会依赖于浏览器，一般会实现**水平居中**的效果 |
+| *length* | 定义一个固定的 margin（使用像素，pt，em等）                  |
+| *%*      | 定义一个使用百分比的边距                                     |
 
 PS：Margin 可以使用负值，重叠的内容。
 
@@ -1904,7 +2111,7 @@ CSS 组合选择符包括各种简单选择符的组合方式。
 
 后代选择器用于选取某元素的后代元素。
 
-以下实例选取所有 \<p> 元素插入到 \<div> 元素中: 
+以下实例选取所有插入到 \<div> 元素中的 \<p> 元素: 
 
 ```css
 div p {  
@@ -2090,7 +2297,7 @@ q:lang(no) {quotes: "~" "~";}
 
 CSS 伪元素是用来添加一些选择器的特殊效果。
 
-## 语法
+### 语法
 
 伪元素的语法：
 
@@ -2191,7 +2398,7 @@ p:first-line  {
 }
 ```
 
-## CSS :before 伪元素
+### CSS :before 伪元素
 
 ":before" 伪元素可以在元素的内容前面插入新内容。
 
@@ -2203,7 +2410,7 @@ h1:before  {
 }
 ```
 
-## CSS :after 伪元素
+### CSS :after 伪元素
 
 ":after" 伪元素可以在元素的内容之后插入新内容。
 
@@ -2230,6 +2437,10 @@ h1:after {
 | [:before](https://www.runoob.com/cssref/sel-before.html)     | p:before       | 在每个 \<p>元素之前插入内容                      |
 | [:after](https://www.runoob.com/cssref/sel-after.html)       | p:after        | 在每个 \<p>元素之后插入内容                      |
 | [:lang(*language*)](https://www.runoob.com/cssref/sel-lang.html) | p:lang(it)     | 为 \<p> 元素的lang属性选择一个开始值             |
+
+## CSS选择器的特异度
+
+![image-20220725154318175](/Users/zaizai/Library/Application Support/typora-user-images/image-20220725154318175.png)
 
 ## CSS 导航栏
 

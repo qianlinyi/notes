@@ -2,13 +2,12 @@
 
 ## Mac
 
-| Shortcut Keys | Function         |
-| ------------- | ---------------- |
-| ⌘ + ⌥ + D     | 显示/隐藏Dock栏  |
-| ⌥ + ⌘ + space | 打开Finder       |
-| ⌘ + space     | Spotlight Search |
-
-
+| Shortcut Keys | Function                  |
+| ------------- | ------------------------- |
+| ⌘ + ⌥ + D     | 显示/隐藏Dock栏           |
+| ⌥ + ⌘ + space | 打开Finder                |
+| ⌘ + space     | Spotlight Search          |
+| ⌘ + ⇧ + .     | 显示/隐藏目录下的隐藏文件 |
 
 ## Typora
 
