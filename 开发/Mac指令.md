@@ -8,6 +8,7 @@
 | ⌥ + ⌘ + space | 打开Finder                |
 | ⌘ + space     | Spotlight Search          |
 | ⌘ + ⇧ + .     | 显示/隐藏目录下的隐藏文件 |
+| ⇧ + ⌥ + ⌘ + V | 无格式粘贴                |
 
 ## Typora
 
