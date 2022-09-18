@@ -224,3 +224,94 @@ b = b - alpha * db
 幻灯片上只应用了一步梯度下降。因此需要重复以上内容很多次，以应用多次梯度下降。
 
 当你应用深度学习算法，你会发现在代码中显式地使用for循环使你的算法很低效，同时在深度学习领域会有越来越大的数据集。所以能够应用你的算法且没有显式的for循环会是重要的，并且会帮助你适用于更大的数据集。所以这里有一些叫做向量化技术,它可以允许你的代码摆脱这些显式的for循环。
+
+### Vectorization
+
+向量化是非常基础的去除代码中**for**循环的艺术，在深度学习安全领域、深度学习实践中，你会经常发现自己需要训练大数据集，因为深度学习算法处理大数据集效果很棒，所以你的代码运行速度非常重要，否则你的代码可能花费很长时间去运行，且要等待非常长的时间得到结果。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405174859641.png)
+
+向量化和 for 循环运行速度比较：[代码地址](https://github.com/qianlinyi/deep-learning/blob/main/vectorization%20demo.ipynb)
+
+你可能听过很多类似如下的话，“大规模的深度学习使用了 GPU 或者图像处理单元实现”，但是我做的所有的案例都是在jupyter notebook上面实现，这里只有 CPU，CPU 和 GPU 都有并行化的指令，他们有时候会叫做 SIMD 指令，这个代表单指令多数据流，这个的基础意义是，如果你使用了 built-in 函数,像 np.function 或者并不要求你实现循环的函数，它可以让 python 的充分利用并行化计算。GPU更加擅长SIMD计算，但是CPU事实上也不是太差，可能没有 GPU 那么擅长吧。
+
+### More vectorization examples
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405175618815.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405183907612.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405184152115.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405184158595.png)
+
+### Vectorizing Logistic Regression
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405191626506.png)
+
+```python
+Z = np.dot(w.T,x) + b
+```
+
+如上式，python 可以会通过广播机制将 b 拓展成 $1*m$ 的行向量
+
+### Vectorizing Logistic Regression's Gradient Computation
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405154538251.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405154829729.png)
+
+### Broadcasting in Python
+
+[代码地址](https://github.com/qianlinyi/deep-learning/blob/main/Broadcasting%20example.ipynb)
+
+### A note on python/numpy vectors
+
+```python
+a = np.random.randn(5) -> a.shape=(5,)
+a = np.random.randn(5,1) -> a.shape=(5,1)
+```
+
+上式中的第一个定义得到的是一个一维数组，既不是行向量也不是列向量，这个就会影响后续的向量运算。为解决上述问题，一种是把 a 直接定义成行向量或者列向量，或者在定义之后加断言，或者 reshape。
+
+因此，要简化代码，不要使用一维数组。总是使用 n ∗ 1 维矩阵（基本上是列向量），或者 1 ∗ n 维矩阵（基本上是行向量），这样你可以减少很多使用 assert 语句来检查矩阵和数组维数的时间。另外，为确保矩阵或向量是所需要的维数时，不要羞于 reshape 操作。
+
+```python
+assert(a.shape == (5,1))
+a = a.reshape((5,1))
+```
+
+### Explanation of logistic regression cost function
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200415160744120.png)
+
+可以将上述两个公式进行合并：
+
+$\mathrm{p(y|x)=\hat{y}^y(1-\hat{y})^{(1-y)}}$
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020041516080968.png)
+
+由于 log 函数是严格单调递增的函数，最大化 $\log(\mathrm{p(y|x)})$ 等价于最大化 $\mathrm{p(y|x)}$ 并计算其对数，则通过对数函数简化为:
+
+$\mathrm{y\log{\hat{y}}+(1-y)\log{(1-\hat{y})}}$
+
+这就是我们前面提到的损失函数的负数 $\mathrm{-L(\hat{y},y)}$，前面有一个负号的原因是当你训练学习算法时需要算法输出值的概率是最大的（以最大的概率预测这个值），然而在逻辑回归中我们需要最小化损失函数，因此最小化损失函数就是最大化 $\log(\mathrm{p(y|x)})$
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020041516082487.png)
+
+  在 m 个训练样本的整个训练集中又该如何表示呢，假设所有的训练样本服从同一分布且相互独立，也即独立同分布的，所有这些样本的联合概率就是每个样本概率的乘积:
+
+$\mathrm{P(labels\ in\ training\ set)=\prod\limits_{i=1}^{n}P(y^{(i)}|x^{(i)})}$
+
+如果你想做最大似然估计，需要寻找一组参数，使得给定样本的观测值概率最大，但令这个概率最大化等价于令其对数最大化，在等式两边取对数：
+
+$\mathrm{P(labels\ in\ training\ set)=\prod\limits_{i=1}^{n}P(y^{(i)}|x^{(i)})=\sum\limits_{i=1}^{m}\log{P(y^{(i)}|x^{(i)})}=\sum\limits_{i=1}^m-L(\hat{y}^{(i)},y^{(i)})}$
+
+将负号移到求和公式外面，就得到了逻辑回归的成本函数：
+
+$\mathrm{J(w,b)=\sum\limits_{i=1}^{m}L(\hat{y}^{(i)},y^{(i)})}$
+
+由于训练模型时，目标是让成本函数最小化，所以我们不是直接用最大似然概率，要去掉这里的负号，最后为了方便，可以对成本函数进行适当的缩放，我们就在前面加一个额外的常数因子 $\frac{1}{m}$ ，即:
+
+
+$\mathrm{J(w,b)=\frac{1}{m}\sum\limits_{i=1}^{m}L(\hat{y}^{(i)},y^{(i)})}$
