@@ -172,6 +172,9 @@ git branch -a  # 显示本地和远程分支
 git branch -m [branch] [newbranch]  # 修改分支名
 git branch -d [branch]  # 删除本地分支
 git branch -d -r [branch]  # 删除远程分支
+git branch -u origin/远程分支名  # 将本地分支与远程分支关联
+git branch --set-upstream-to origin/远程分支名  # 同上
+git branch --unset-upstream  # 撤销本地分支与远程分支
 ```
 
 ### merge
