@@ -1,8 +1,8 @@
-# Neural Networks and Deep Learning
+# Course 1 Neural Networks and Deep Learning
 
-## Introduction to Deep Learning
+## Week 1 Introduction to Deep Learning
 
-### What is a Neural Network
+### 1.1 What is a Neural Network
 
 Housing Price Prediction
 
@@ -22,7 +22,7 @@ ReLU 激活函数 max(0,x)
 
 神经网络的一部分神奇之处在于，当你实现它之后，你要做的只是输入 x，就能得到输出 y。因为它可以自己计算你训练集中样本的数目以及所有的中间过程。所以，你实际上要做的就是：这里有四个输入的神经网络，这输入的特征可能是房屋的大小、卧室的数量、邮政编码和区域的富裕程度。给出这些输入的特征之后，神经网络的工作就是预测对应的价格。同时也注意到这些被叫做隐藏单元圆圈，在一个神经网络中，它们每个都从输入的四个特征获得自身输入，比如说，第一个结点代表家庭人口，而家庭人口仅仅取决于 $x_1$  和 $x_2$  特征，换句话说，在神经网络中，你决定在这个结点中想要得到什么，然后用所有的四个输入来计算想要得到的。因此，我们说输入层和中间层被紧密的连接起来了。
 
-### Supervised Learning with Neural Networks
+### 1.2 Supervised Learning with Neural Networks
 
 关于神经网络也有很多的种类，考虑到它们的使用效果，有些使用起来恰到好处，但事实表明，到目前几乎所有由神经网络创造的经济价值，本质上都离不开一种叫做监督学习的机器学习类别，让我们举例看看。
 
@@ -42,7 +42,7 @@ ReLU 激活函数 max(0,x)
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200403222312201.png)
 
-### Why is Deep Learning taking off ？
+### 1.3 Why is Deep Learning taking off ？
 
 在水平轴上画一个形状，在此绘制出所有任务的数据量，而在垂直轴上，画出机器学习算法的性能。比如说准确率体现在垃圾邮件过滤或者广告点击预测，或者是神经网络在自动驾驶汽车时判断位置的准确性，根据图像可以发现，如果你把一个传统机器学习算法的性能画出来，作为数据量的一个函数，你可能得到一个弯曲的线，就像图中这样，它的性能一开始在增加更多数据时会上升，但是一段变化后它的性能就会像一个平原一样。假设你的水平轴拉的很长很长，它们不知道如何处理规模巨大的数据，而过去十年的社会里，我们遇到的很多问题只有相对较少的数据量。
 
@@ -62,9 +62,9 @@ ReLU 激活函数 max(0,x)
 如果你无法理解刚才我说的某个细节，也不需要担心，可以知道的一个使用sigmoid函数和机器学习问题是，在这个区域，也就是这个sigmoid函数的梯度会接近零，所以学习的速度会变得非常缓慢，因为当你实现梯度下降以及梯度接近零的时候，参数会更新的很慢，所以学习的速率也会变的很慢，而通过改变这个被叫做激活函数的东西，神经网络换用这一个函数，叫做ReLU的函数（修正线性单元），ReLU它的梯度对于所有输入的负值都是零，因此梯度更加不会趋向逐渐减少到零。而这里的梯度，这条线的斜率在这左边是零，仅仅通过将Sigmod函数转换成ReLU函数，便能够使得一个叫做梯度下降（gradient descent）的算法运行的更快，这就是一个或许相对比较简单的算法创新的例子。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200403222744990.png)
 
-## Basics of Neural Network Programming
+## Week 2 Basics of Neural Network Programming
 
-### Binary Classification
+### 2.1 Binary Classification
 
 logistic regression 逻辑回归
 
@@ -103,7 +103,7 @@ $X$ 是一个规模为 $n_x\times m$ 的矩阵，当你用 $Python$ 实现的时
 
 一个好的符号约定能够将不同训练样本的数据很好地组织起来
 
-### Logistic Regression
+### 2.2 Logistic Regression
 
 对于二分类问题，给定输入 $X$，则有输出预测 $\hat{y}=P(y=1|x)$。上文提到过，$X$ 是一个 $n_x$ 维的向量，用 $w$ 表示逻辑回归的参数，$b$ 表示偏差，则有 $\hat{y}=w^Tx+b$
 
@@ -119,7 +119,7 @@ $X$ 是一个规模为 $n_x\times m$ 的矩阵，当你用 $Python$ 实现的时
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200404163746291.png)
 
-### Logistic Regression cost function
+### 2.3 Logistic Regression cost function
 
 为了训练逻辑回归模型的参数 w 和参数 b ，我们需要一个代价函数，通过训练代价函数来得到参数 w 和参数 b。先看一下逻辑回归的输出函数：
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200404164350355.png)
@@ -142,7 +142,7 @@ $J(w,b)=\frac{1}{m}\sum\limits_{i=1}^m{L(\hat{y}^{(i)},y^{(i)})=\frac{1}{m}\sum\
 
 损失函数只适用于单个训练样本，而代价函数是参数的总代价，所以在训练逻辑回归模型时候，我们需要找到合适的 w 和 b ，来让代价函数 J 的总代价降到最低。 
 
-### Gradient Descent
+### 2.4 Gradient Descent
 
 在测试集上，通过最小化代价函数（成本函数）$J(w,b)$ 来训练参数 w 和 b，如图所示，在第二行给出和之前一样的逻辑回归算法的代价函数
 
@@ -178,24 +178,24 @@ $\alpha$ 表示学习率，用来控制步长，即向下走一步的长度，$\
 
 $\sigma$ 表示求偏导符号，当函数含有两个以上的参数时会用到
 
-### Computation Graph
+### 2.5 Computation Graph
 
 可以说，一个神经网络的计算，都是按照前向或反向传播过程组织的。首先我们计算出一个新的网络的输出（前向过程），紧接着进行一个反向传输操作。后者我们用来计算出对应的梯度或导数。计算图解释了为什么我们用这种方式组织这些计算过程。在这个视频中，我们将举一个例子说明计算图是什么。让我们举一个比逻辑回归更加简单的，或者说不那么正式的神经网络的例子。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200404192554622.png)
 
-### Derivatives with a Computation Graph 
+### 2.6 Derivatives with a Computation Graph 
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200404181258919.png)
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200404181411904.png)
 
-### Logistic Regression Gradient descent 
+### 2.7 Logistic Regression Gradient descent 
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200404215803496.png)
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200404221156854.png)
 
-### Gradient descent on m examples
+### 2.8 Gradient descent on m examples
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2020040422245014.png)
 
@@ -225,7 +225,7 @@ b = b - alpha * db
 
 当你应用深度学习算法，你会发现在代码中显式地使用for循环使你的算法很低效，同时在深度学习领域会有越来越大的数据集。所以能够应用你的算法且没有显式的for循环会是重要的，并且会帮助你适用于更大的数据集。所以这里有一些叫做向量化技术,它可以允许你的代码摆脱这些显式的for循环。
 
-### Vectorization
+### 2.9 Vectorization
 
 向量化是非常基础的去除代码中**for**循环的艺术，在深度学习安全领域、深度学习实践中，你会经常发现自己需要训练大数据集，因为深度学习算法处理大数据集效果很棒，所以你的代码运行速度非常重要，否则你的代码可能花费很长时间去运行，且要等待非常长的时间得到结果。
 
@@ -235,7 +235,7 @@ b = b - alpha * db
 
 你可能听过很多类似如下的话，“大规模的深度学习使用了 GPU 或者图像处理单元实现”，但是我做的所有的案例都是在jupyter notebook上面实现，这里只有 CPU，CPU 和 GPU 都有并行化的指令，他们有时候会叫做 SIMD 指令，这个代表单指令多数据流，这个的基础意义是，如果你使用了 built-in 函数,像 np.function 或者并不要求你实现循环的函数，它可以让 python 的充分利用并行化计算。GPU更加擅长SIMD计算，但是CPU事实上也不是太差，可能没有 GPU 那么擅长吧。
 
-### More vectorization examples
+### 2.10 More vectorization examples
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405175618815.png)
 
@@ -245,7 +245,7 @@ b = b - alpha * db
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405184158595.png)
 
-### Vectorizing Logistic Regression
+### 2.11 Vectorizing Logistic Regression
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405191626506.png)
 
@@ -255,17 +255,17 @@ Z = np.dot(w.T,x) + b
 
 如上式，python 可以会通过广播机制将 b 拓展成 $1*m$ 的行向量
 
-### Vectorizing Logistic Regression's Gradient Computation
+### 2.12 Vectorizing Logistic Regression's Gradient Computation
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405154538251.png)
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200405154829729.png)
 
-### Broadcasting in Python
+### 2.13 Broadcasting in Python
 
 [代码地址](https://github.com/qianlinyi/deep-learning/blob/main/Broadcasting%20example.ipynb)
 
-### A note on python/numpy vectors
+### 2.14 A note on python/numpy vectors
 
 ```python
 a = np.random.randn(5) -> a.shape=(5,)
@@ -281,7 +281,7 @@ assert(a.shape == (5,1))
 a = a.reshape((5,1))
 ```
 
-### Explanation of logistic regression cost function
+### 2.15 Explanation of logistic regression cost function
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200415160744120.png)
 
@@ -315,3 +315,148 @@ $\mathrm{J(w,b)=\sum\limits_{i=1}^{m}L(\hat{y}^{(i)},y^{(i)})}$
 
 
 $\mathrm{J(w,b)=\frac{1}{m}\sum\limits_{i=1}^{m}L(\hat{y}^{(i)},y^{(i)})}$
+
+## Week 3 Shallow neural networks
+
+### 3.1 Neural Networks Overview
+
+使用符号 $^{[m]}$ 表示和第 m 层网络相关的量
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406093426798.png)
+
+### 3.2 Neural Network Representation
+
+下图是一个两层的神经网络，因为在计算网络层数时，输入层不算入总层数内
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406094118292.png)
+
+### 3.3 Computing a Neural Network's Output
+
+神经网络的计算
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200416174641678.png?)
+
+逻辑回归的计算有两个步骤，首先按步骤计算出 z，接着以 sigmoid 函数为激活函数计算 z，一个神经网络会重复很多这样的计算。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406095048894.png)
+
+### 3.4 Vectorizing across multiple examples
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020040610004118.png)
+
+
+
+在垂直方向，这个垂直索引对应于神经网络中的不同节点。例如，节点位于矩阵的最左上角对应于激活单元，它是位于第一个训练样本上的第一个隐藏单元。它的下一个值对应于第二个隐藏单元的激活值。它是位于第一个训练样本上的，以及第一个训练样本中第三个隐藏单元等等。
+
+当水平扫描，将从第一个训练示例中从第一个隐藏的单元到第二个训练样本，第三个训练样本……直到节点对应于第一个隐藏单元的激活值，且这个隐藏单元是位于这 m 个训练样本中的最终训练样本。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406100935188.png)
+
+### 3.5 Justification for vectorized implementation
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406101857608.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406102105185.png)
+
+### 3.6 Activation functions
+
+tanh 函数（双曲正切函数），为 sigmoid 向下平移和伸缩后的结果
+
+$\mathrm{tanh(z)=\frac{e^z-e^{-z}}{e^z+e^{-z}}}$
+
+结果表明，在隐藏层上使用 tanh 函数的效果总是优于 sigmoid 函数，因为函数值域为 [-1,1]，其均值更接近于 0。但有一个例外，在二分类问题中，因为 y 的值是 0 或 1，想让 $\mathrm{\hat{y}}$ 的值介于 0 和 1之间，而不是在 -1 和 1之间，所以使用 sigmoid 函数。
+
+sigmoid 函数和 tanh 函数两者共同的缺点是，在 z 特别大或者特别小的情况下，导数的梯度或者函数的斜率会变得特别小，最后就会接近于 0，从而影响梯度下降的速度。
+
+
+如果输出是 0、1值（二分类问题），则输出层选择 **sigmoid** 函数，然后其它的所有单元都选择 **ReLU** 函数。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020040610300625.png?)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406103136587.png)
+
+### 3.7 Why need a non-linear activation functions?
+
+事实证明，如果你使用线性激活函数或者没有使用一个激活函数，那么无论你的神经网络有多少层一直在做的只是计算线性函数，所以不如直接去掉全部隐藏层。
+
+在这里线性隐层一点用也没有，因为两个线性函数的组合本身就是线性函数，所以除非你引入非线性，否则无法计算更有趣的函数，即使网络层数再多也不行。
+
+有一个例外，就是机器学习的回归问题，可以在输出层使用线性激活函数。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406110608189.png)
+
+### 3.8 Derivates of activation functions
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020040611111112.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406111400824.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406111622470.png)
+
+### 3.9 Gradient descent for neural networks
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406112459175.png)
+
+axis = 1 表示水平相加求和，keepdims = True 表示保持矩阵的二维特性，防止输出秩为 1 的矩阵（列表）
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406113142547.png)
+
+### 3.10 Backpropagation intuition
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020040611393188.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406114559408.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406114737151.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406114930757.png)
+
+### 3.11 Random Initialization
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406115539411.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200406115955724.png)
+
+## Week 4 Deep Neural Networks
+
+### 4.1 Deep L-layer neural network
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407103736540.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407104005590.png)
+
+### 4.2 Forward propagation in a deep network
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407105846930.png)
+
+### 4.3 Getting your matrix dimensions right 
+
+在做深度神经网络的反向传播时，一定要确认所有的矩阵维数是前后一致的，这样可以大大提高代码通过率。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407114638276.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407115001724.png)
+
+### 4.4 Why deep representations?
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407122839400.png)
+
+### 4.5 Building blocks of deep neural networks
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407124109689.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407124354308.png)
+
+### 4.6 Forward and backward propagation
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407104357135.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407104651930.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407104929246.png)
+
+### 4.7 Parameters vs Hyperparameters
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407124936668.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200407125259241.png)
